@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from './services/api';
+import { FiX } from 'react-icons/fi';
 
 import Header from './components/Header';
 
@@ -10,7 +11,6 @@ function App() {
 
   useEffect(() => {
     api.get('/projects').then(response => {
-      console.log(response.data);
       setProjects(response.data);
     });
 
@@ -25,6 +25,12 @@ function App() {
     setProjects([...projects, response.data]);
   }
 
+  async function handleRemoveProject(id) {
+    await api.delete(`/projects/${id}`);
+
+    setProjects(projects.filter(project => project.id !== id));
+  }
+
   return (
     <>
       <div className="container">
@@ -32,10 +38,13 @@ function App() {
         <ul>
           {projects.map(project => (
             <li key={project.id}>
-              <strong>{project.title}</strong>
               <div>
+                <strong>{project.title}</strong>
                 <span>{project.owner}</span>
               </div>
+              <button onClick={() => handleRemoveProject(project.id)}>
+                <FiX size={20} />
+              </button>
             </li>
           ))}
         </ul>
