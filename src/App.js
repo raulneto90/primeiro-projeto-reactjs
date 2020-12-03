@@ -16,21 +16,31 @@ function App() {
 
   }, []);
 
-  function handleAddProject() {
-    setProjects([...projects, `Novo projeto - ${Date.now()}`]);
+  async function handleAddProject() {
+    const response = await api.post('/projects', {
+      title: `Novo projeto - ${Date.now()}`,
+      owner: "Raul Neto"
+    })
+
+    setProjects([...projects, response.data]);
   }
 
   return (
     <>
-      <Header title="Projects" />
-
-      <ul>
-        {projects.map(project => (
-          <li key={project.id}>{project.title}</li>
-        ))}
-      </ul>
-
-      <button type="button" onClick={handleAddProject}>Adicionar projeto</button>
+      <div className="container">
+        <Header title="Projects" />
+        <ul>
+          {projects.map(project => (
+            <li key={project.id}>
+              <strong>{project.title}</strong>
+              <div>
+                <span>{project.owner}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <button type="button" onClick={handleAddProject}>Adicionar projeto</button>
+      </div>
     </>
   );
 }
