@@ -1,5 +1,7 @@
 # Sistema de Projetos - ReactJS
 
+<img src="https://github.com/raulneto90/primeiro-projeto-reactjs/blob/master/images/system-gif.gif" alt="GIF sistema"/>
+
 ## :information_source: Sobre o projeto
 
 Este projeto foi desenvolvido em ReactJS no curso GoStack da Rocketseat, onde é possível realizar:
